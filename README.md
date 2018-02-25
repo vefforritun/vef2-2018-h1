@@ -34,10 +34,14 @@ Flæði væri:
 * Bækur
   - Auðkenni, _primary key_
   - Titill, _einstakt gildi_, ekki tómi strengurinn
-  - ISBN10, nákvæmlega 10 stafa strengur gerður úr tölum
+  - ISBN13, _einstakt gildi_, nákvæmlega 13 stafa strengur gerður úr tölum
   - Höfundur, ekki krafist
   - Lýsing, lengri texti, ekki krafist
   - Flokkur, _foreign key_ í flokka töflu
+  - ISBN10, strengur, ekki krafa að hafa með í verkefni
+  - Útgáfudagsetning, strengur, ekki krafa að hafa með í verkefni
+  - Síðufjöldi, tala, stærri en 0, ekki krafa að hafa með í verkefni
+  - Tungumál, 2 stafa strengur, ekki krafa að hafa með í verkefni
 * Lesnar bækur notenda
   - Auðkenni
   - Auðkenni notanda, _foreign key_ í notanda töflu
@@ -47,10 +51,8 @@ Flæði væri:
 
 Þar sem merkt er _primary key_, _foreign key_ eða _einstakt gildi_ (unique) þarf að setja viðeigandi skoður á töflu, sjá https://www.postgresql.org/docs/current/static/ddl-constraints.html
 
-Gögn eru gefin innan `data/` möppu þar sem `books.csv` inniheldur bækur, fyrsta lína skilgreinir dálka. Nýjar línur eru kóðaðar sem `\n` og ef `"` kemur fyrir í texta er það kóðað sem `""`, t.d.
-`"Þetta er lýsing\ní tveim línum með ""gæsalöppum"""`
-
-Ekki eru heildargögn komin inn en þau koma á allra næstu dögum.
+Gögn eru gefin innan `data/` möppu þar sem `books.csv` inniheldur 532 færslur, fyrsta lína skilgreinir dálka. Ef `"` kemur fyrir í texta er það kóðað sem `""`, t.d.
+`"Þetta er lýsing með ""gæsalöppum"""`. Gögn innihalda ekki nýlínu tákn.
 
 ## Vefþjónustur
 
@@ -116,9 +118,9 @@ Upplýsingum um limit og offset skal skila í svari ásamt gögnum á forminu:
 
 ```json
 {
-  limit: 10,
-  offset: 0,
-  items: [
+  "limit": 10,
+  "offset": 0,
+  "items": [
     // 10 hlutir úr svari
   ]
 }
@@ -133,6 +135,8 @@ Aðeins þarf að leita í bókatöflu í reitunum titil og lýsingarreitum. Pos
 Ekki þarf að útfæra „týnt lykilorð“ virkni.
 
 Bækur geta aðeins verið í einum flokk.
+
+Þegar gögn eru flutt inn í gagnagrunn getur verið gott að nýta `await` í lykkju þó að eslint mæli gegn því. Ef t.d. er reynt að setja inn yfir 500 færslur í einu í gagnagrunn með `Promise.all`, getur tenging rofnað vegna villu.
 
 ## Hópavinna
 
