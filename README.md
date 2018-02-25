@@ -24,30 +24,32 @@ Flæði væri:
 
 * Notendur
   - Auðkenni, _primary key_
-  - Notendanafn, _einstakt gildi_, a.m.k. 3 stafir
-  - Lykilorðs hash, lykilorð verður að vera a.m.k. 6 stafir
-  - Nafn, ekki tómi strengurinn
+  - Notendanafn, _einstakt gildi_, a.m.k. 3 stafir, krafist
+  - Lykilorðs hash, lykilorð verður að vera a.m.k. 6 stafir, krafist
+  - Nafn, ekki tómi strengurinn, krafist
   - Slóð á mynd, ekki krafist
 * Flokkar
   - Auðkenni, _primary key_
-  - Heiti, _einstakt gildi_, ekki tómi strengurinn
+  - Heiti, _einstakt gildi_, ekki tómi strengurinn, krafist
 * Bækur
   - Auðkenni, _primary key_
-  - Titill, _einstakt gildi_, ekki tómi strengurinn
-  - ISBN13, _einstakt gildi_, nákvæmlega 13 stafa strengur gerður úr tölum
+  - Titill, _einstakt gildi_, ekki tómi strengurinn, krafist
+  - ISBN13, _einstakt gildi_, nákvæmlega 13 stafa strengur gerður úr tölum, krafist
   - Höfundur, ekki krafist
   - Lýsing, lengri texti, ekki krafist
-  - Flokkur, _foreign key_ í flokka töflu
-  - ISBN10, strengur, ekki krafa að hafa með í verkefni
-  - Útgáfudagsetning, strengur, ekki krafa að hafa með í verkefni
-  - Síðufjöldi, tala, stærri en 0, ekki krafa að hafa með í verkefni
-  - Tungumál, 2 stafa strengur, ekki krafa að hafa með í verkefni
+  - Flokkur, _foreign key_ í flokka töflu, krafist
+  - ISBN10, strengur, ekki krafist, ekki krafa að hafa með í verkefni
+  - Útgáfudagsetning, ekki krafist, strengur, ekki krafa að hafa með í verkefni
+  - Síðufjöldi, tala, stærri en 0, ekki krafist, ekki krafa að hafa með í verkefni
+  - Tungumál, 2 stafa strengur, ekki krafist, ekki krafa að hafa með í verkefni
 * Lesnar bækur notenda
   - Auðkenni
-  - Auðkenni notanda, _foreign key_ í notanda töflu
-  - Auðkenni bókar, _foreign key_ í bóka töflu
-  - Einkunn notanda, gildi úr eftirfarandi lista `1, 2, 3, 4, 5` þar sem `1` er lægsta einkunn og `5` hæsta
+  - Auðkenni notanda, _foreign key_ í notanda töflu, krafist
+  - Auðkenni bókar, _foreign key_ í bóka töflu, krafist
+  - Einkunn notanda, gildi úr eftirfarandi lista `1, 2, 3, 4, 5` þar sem `1` er lægsta einkunn og `5` hæsta, krafist
   - Dómur notanda, lengri texti, ekki krafist
+
+Þar sem merkt er _krafist_ verða gögn að innihalda gildi og þau að vera gild skv. lýsingu. Þar sem merkt er _ekki krafst_ má sleppa gildi í gögnum, bæði þegar eining er búin til og henni skilað.
 
 Þar sem merkt er _primary key_, _foreign key_ eða _einstakt gildi_ (unique) þarf að setja viðeigandi skoður á töflu, sjá https://www.postgresql.org/docs/current/static/ddl-constraints.html
 
