@@ -109,6 +109,7 @@ Fyrir innskráðan notanda skal einnig vera hægt að:
 * Skrá nýjan flokk
 * Skrá lestur á bók
 * Eyða lestur á bók
+* Skoða aðra notendur og lestur þeirra
 
 ### Síður (paging)
 
