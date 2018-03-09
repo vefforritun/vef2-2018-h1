@@ -1,0 +1,29 @@
+{
+  "name": "hopverkefni-1",
+  "version": "1.0.0",
+  "description": "Útfæra skal vefþjónustu fyrir „bókasafn“ með notendaumsjón. Gefin eru gögn fyrir bækur og flokka.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valdirunars/vef2-2018-h1.git"
+  },
+  "author": "Þorvaldur Rúnarsson & Drífa Sóley Heimisdóttir",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valdirunars/vef2-2018-h1/issues"
+  },
+  "homepage": "https://github.com/valdirunars/vef2-2018-h1#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "dotenv": "^5.0.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "pg": "^7.4.1"
+  }
+}
