@@ -180,7 +180,7 @@ Verkefni sett fyrir í fyrirlestri fimmtudaginn 22. febrúar 2018.
 
 ## Skil
 
-Einn aðili í hóp skal skila fyrir hönd allra og skila skal undir „Verkefni og hlutaprófa“ á Uglu í seinasta lagi fyrir lok dags fimmtudaginn 15. mars 2018.
+Einn aðili í hóp skal skila fyrir hönd allra og skila skal undir „Verkefni og hlutaprófa“ á Uglu í seinasta lagi fyrir lok dags miðvikudaginn 21. mars 2018.
 
 Skilaboð skulu innihalda slóð á GitHub repo fyrir verkefni, slóð á Heroku og nöfn allra þá sem eru í hópnum. Dæmatímakennurum skal hafa verið boðið í repo ([sjá leiðbeiningar](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/)). Notendanöfn þeirra eru `ernir` og `elvarhelga`.
 
