@@ -46,7 +46,8 @@ exports.validateBook = (book) => {
 };
 
 exports.validateUsername = (username) => {
-  return (typeof username === "string") && username.length >= 3;
+  const containsWhitespace = /\s/.test(username);
+  return (typeof username === "string") && username.length >= 3 && !containsWhitespace;
 }
 
 exports.validateUser = (user) => {
