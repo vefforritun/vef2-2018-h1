@@ -1,9 +1,6 @@
 const db = require('./database');
 const validator = require('./validator');
-
-function preparePotentialUser(httpBody) {
-  // TODO: implementa
-}
+const bc = require('bcrypt');
 
 async function create(user) {
   const errorMessage = validateUser(user);
@@ -14,6 +11,36 @@ async function create(user) {
   const { username, hash, name, image } = user;
 
   // TODO: SQL til að setja í töfluna "Users"
+  const query = 'INSERT INTO Users(username, passwordHash, name, image) VALUES($1, $2, $3, $4) returning username;';
+  const params = [
+    username,
+    hash,
+    name,
+    image,
+  ];
+
+  try {
+    const result = await db.query(query, params);
+    return result;
+  } catch (e) {
+    return validator.createError({ error: e.message }, 400);
+  }
+}
+
+async function preparePotentialUser(httpBody) {
+  const saltRounds = 10;
+  const hash = await bc.hash(httpBody.password, saltRounds);
+  const user = {
+    username: httpBody.username,
+    passwordHash: hash,
+    name: httpBody.name,
+    image: httpBody.image,
+  }
+  await create(user);
+}
+
+async function authenticate(user, password) {
+  return await bc.compare(password, user.passwordHash);
 }
 
 async function readAll() {
@@ -23,26 +50,26 @@ async function readAll() {
     const result = await db.query(query, params);
     return result;
   } catch (e) {
-    return createError({ error: e.message }, 400);
+    return validator.createError({ error: e.message }, 400);
   }
 }
 
-async function readOne(id) {
-  if (!valdator.validateID(id)) {
-    return createError({ error: 'Invalid id' }, 400);
+async function readOne(username) {
+  if (!validator.validateUsername(username)) {
+    return validator.createError({ error: 'Invalid username' }, 400);
   }
-  const query = 'SELECT * FROM Users WHERE id=$1;';
-  const params = [id];
+  const query = 'SELECT * FROM Users WHERE username=$1;';
+  const params = [email];
   const result = await db.query(query, params);
   if (result.length > 0) {
     return result[0];
   }
-  return createError({ error: 'User not found' }, 404);
+  return validator.createError({ error: 'User not found' }, 404);
 }
 
 async function update(id, { username, passwordHash, name, image } = {}) {
   if (!valdator.validateID(id)) {
-    return createError({ error: 'Invalid id' }, 400);
+    return validator.createError({ error: 'Invalid id' }, 400);
   }
 
   const errorMessage = validate(title, text, datetime);
@@ -62,9 +89,9 @@ async function update(id, { username, passwordHash, name, image } = {}) {
         datetime,
       };
     }
-    return createError({ error: 'User not found' }, 404);
+    return validator.createError({ error: 'User not found' }, 404);
   } catch (error) {
-    return createError({ error: error.message }, 400);
+    return validator.createError({ error: error.message }, 400);
   }
 }
 

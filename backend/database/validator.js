@@ -13,7 +13,11 @@ exports.createError = (messageObj, code) => {
 
 exports.validateID = (id) => {
   Number.isNaN(parseInt(id, 10)) === false;
-}
+};
+
+exports.validateEmail = (email) => {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+};
 
 exports.validateBook = (book) => {
   const { title, isbn13, author, description, categoryKey } = book;
@@ -41,10 +45,14 @@ exports.validateBook = (book) => {
   });
 };
 
+exports.validateUsername = (username) => {
+  return (typeof username === "string") && username.length >= 3;
+}
+
 exports.validateUser = (user) => {
   const { username, passwordHash, name, image } = user;
 
-  const isUsernameValid = (typeof username === "string") && username.length >= 3;
+  const isUsernameValid = this.validateUsername(username);
   const isPasswordHashValid = (typeof passwordHash === "string") && passwordHash.length > 0;
   const isNameValid = (typeof name === "string") && name.length > 0;
   const isImageValid = (typeof image === "string") && image.length > 0;
@@ -62,4 +70,4 @@ exports.validateUser = (user) => {
       message: error[IDX.ERROR_MESSAGE],
     }
   });
-}
+};
