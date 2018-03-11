@@ -8,14 +8,19 @@ async function create(user) {
     return validator.createError(errorMessage, 400);
   }
 
-  const { username, passwordhash, name, image } = user;
+  let img = null;
+  if (user.image) {
+    img = user.image
+  }
+
+  const { username, passwordhash, name } = user;
 
   const query = 'INSERT INTO Users(username, passwordhash, name, image) VALUES($1, $2, $3, $4) returning username;';
   const params = [
     username,
     passwordhash,
     name,
-    image,
+    img,
   ];
 
   try {
@@ -86,9 +91,10 @@ async function update(id, { username, passwordhash, name, image } = {}) {
     if (results.length > 0) {
       return {
         id: results[0].id,
-        title,
-        text,
-        datetime,
+        username,
+        passwordhash,
+        name,
+        image,
       };
     }
     return validator.createError({ error: 'User not found' }, 404);

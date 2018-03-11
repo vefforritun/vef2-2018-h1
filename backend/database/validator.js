@@ -58,7 +58,8 @@ exports.validateUser = (user) => {
   const isUsernameValid = this.validateUsername(username);
   const isPasswordhashValid = (typeof passwordhash === "string") && passwordhash.length > 0;
   const isNameValid = (typeof name === "string") && name.length > 0;
-  const isImageValid = (typeof image === "string") && image.length > 0;
+  // image is nullable
+  const isImageValid = ((typeof image === "string") && image.length > 0) || !image;
 
   const possibleErrors = [
     [!isUsernameValid, 'username', 'Field "username" must be a non-empty string'],
