@@ -1,0 +1,18 @@
+<%- include('header'); %>
+<div class="wrapper">
+  <div class="container">
+    <h1 id="title"><%= title %></h1>
+    <form class="form-sign-in">
+      <input id="username" type="text" placeholder="Username">
+      <input id="name" style="display: none;" type="text" placeholder="Full name">
+			<input id="password" type="password" placeholder="Password">
+      <input id="verPassword" style="display: none;" type="password" placeholder="Verify password">
+			<input id="login-button" type="submit" value="Login">
+    </form>
+    <h4 id="not-a-member">Not a member?</h4>
+    <input id="sign-up-now" type="button" value="Sign up now">
+  </div>
+</div>
+
+<script src="/scripts/signup.js"></script>
+<%- include('footer'); %>

@@ -15,8 +15,9 @@ const hostname = '127.0.0.1';
 const port = process.env.PORT;
 
 app.get('/', async (_, res) => {
-  res.render('index', {
-    title: "Einhver Titill"
+  res.render('signup', {
+    title: 'Sign In',
+    buttonText: 'Login',
   });
 });
 
