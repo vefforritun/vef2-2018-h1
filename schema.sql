@@ -3,5 +3,5 @@ CREATE TABLE Users (
   username text UNIQUE NOT NULL,
   passwordHash text NOT NULL,
   name text NOT NULL,
-  image text NOT NULL
+  image text
 );
