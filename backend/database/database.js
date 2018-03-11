@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 
-const connectionString = `${process.env.DATABASE_URL}?ssl=true`;
+const connectionString = 'postgresql://valdi@localhost/vefforritun'//`${process.env.DATABASE_URL}?ssl=true`;
 
 exports.query = async (query, params) => {
   const client = new Client({ connectionString });
