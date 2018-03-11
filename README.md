@@ -8,7 +8,7 @@ Hægt á að vera að skrá notendur með nafni, notendanafni og lykilorði. Au�
 
 Útfæra þarf middleware sem passar upp á slóðir sem eiga að vera læstar séu læstar nema token sé sent með í `Authorization` haus í request.
 
-Eftir að notandi er innskráður er möguleiki á að setja inn mynd fyrir notanda með því að framkvæma `POST` á `/users/me/profile` með mynd (`.png`, `.jpg` eða `.jpeg`) í body á request. Þar sem ekki er hægt að vista myndir beint á disk á Heroku skal notast við [Cloudinary](https://cloudinary.com/), þjónustu sem geymir myndir og bíður upp á API til að vista, sækja og eiga við myndir. Heroku bíður upp á ókeypis útgáfu gegnum [Cloudinary add-on](https://elements.heroku.com/addons/cloudinary).
+Eftir að notandi er innskráður er möguleiki á að setja inn mynd fyrir notanda með því að framkvæma `POST` á `/users/me/profile` með mynd (`.png`, `.jpg` eða `.jpeg`) í body á request. Þar sem ekki er hægt að vista myndir beint á disk á Heroku skal notast við [Cloudinary](https://cloudinary.com/), þjónustu sem geymir myndir og bíður upp á API til að vista, sækja og eiga við myndir. Heroku add-on virkar aðeins fyrir staðfesta notendur en hægt er að skrá sig á [Cloudinary](https://cloudinary.com/) og fá ókeypis prufuaðgang. Til að tengja er ráðlagt að lesa skjölun á [Node.js - Getting started guide](https://cloudinary.com/documentation/node_integration#node_js_getting_started_guide) og [skoða dæmi um uppsetningu](cloudinary/).
 
 Flæði væri:
 
