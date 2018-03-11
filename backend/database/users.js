@@ -61,12 +61,17 @@ async function readAll() {
   }
 }
 
-async function readOne(username) {
-  if (!validator.validateUsername(username)) {
-    return validator.createError({ error: 'Invalid username' }, 400);
+async function readOne(usernameOrID) {
+  let query;
+  const params = [usernameOrID];
+  if (validator.validateID(usernameOrID)) {
+    query = 'SELECT * FROM Users WHERE id=$1;';
+  } else if (validator.validateUsername(usernameOrID)) {
+    query = 'SELECT * FROM Users WHERE username=$1;';
+  } else {
+    return validator.createError({ error: 'Invalid username or ID' }, 400);
   }
-  const query = 'SELECT * FROM Users WHERE username=$1;';
-  const params = [username];
+
   const result = await db.query(query, params);
   if (result.length > 0) {
     return result[0];

@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
     const readOneResult = await users.readOne(result);
 
     if (readOneResult.error) {
-      return res.status(readOneResult.code).json(readOneResult);
+      return res.status(readOneResult.code).json(readOneResult.error);
     }
 
     res.json({
@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
 
   const result = await users.readOne(req.body.username);
   if (result.error) {
-    return req.status(user.error.code).json(result);
+    return req.status(result.code).json(result.error);
   }
 
   const user = result;
