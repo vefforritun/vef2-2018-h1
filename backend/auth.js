@@ -17,6 +17,7 @@ module.exports = () => {
       next(new Error(result.error));
     } else {
       next(null, {
+        id: result.id,
         username: result.username,
         name: result.name,
         image: result.image,

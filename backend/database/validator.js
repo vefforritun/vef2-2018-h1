@@ -16,7 +16,8 @@ exports.createError = (messageObj, code) => {
 };
 
 exports.validateID = (id) => {
-  Number.isNaN(parseInt(id, 10)) === false;
+  const isValid = Number.isNaN(parseInt(`${id}`, 10)) === false
+  return isValid
 };
 
 exports.validateEmail = (email) => {

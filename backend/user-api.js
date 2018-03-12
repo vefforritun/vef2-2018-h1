@@ -1,6 +1,6 @@
 const users = require('./database/users');
 const express = require('express')
-const auth = require('./backend/auth')();
+const auth = require('./auth')();
 
 const router = express.Router()
 
@@ -14,10 +14,17 @@ router.patch('/me', auth.authenticate(), async (req, res) => {
   const id = req.user.id;
   let user = await users.readOne(id);
   const { name, password } = req.body;
-  user.name = name;
-  user.password = password;
-  const queryObject = users.preparePotentialUser(user);
-  const result = users.update(id, queryObject);
+
+  if (name) {
+    user.name = name;
+  }
+
+  if (password) {
+    user.password = password;
+    user = await users.preparePotentialUser(user);
+  }
+
+  const result = await users.update(id, user);
   if (result.error) {
     res.status(result.code).json(result.error);
   } else {

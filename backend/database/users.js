@@ -79,28 +79,19 @@ async function readOne(usernameOrID) {
   return validator.createError({ error: 'User not found' }, 404);
 }
 
-async function update(id, { username, passwordhash, name, image } = {}) {
-  if (!valdator.validateID(id)) {
+async function update(id, { name, passwordhash, image } = {}) {
+  if (!validator.validateID(id)) {
     return validator.createError({ error: 'Invalid id' }, 400);
   }
 
-  const errorMessage = validate(title, text, datetime);
-  if (errorMessage.length > 0) {
-    return errorMessage;
-  }
-  const query = 'UPDATE Users SET username=$1, passwordhash=$2, name=$3, image=$4 WHERE id=$5 returning id;';
-  const params = [username, passwordhash, name, id];
+  const query = 'UPDATE Users SET passwordhash=$1, name=$2, image=$3 WHERE id=$4 returning id;';
+  const params = [passwordhash, name, image, id];
 
   try {
     const results = await db.query(query, params);
     if (results.length > 0) {
-      return {
-        id: results[0].id,
-        username,
-        passwordhash,
-        name,
-        image,
-      };
+      const user = await this.readOne(results[0].id);
+      return user;
     }
     return validator.createError({ error: 'User not found' }, 404);
   } catch (error) {
