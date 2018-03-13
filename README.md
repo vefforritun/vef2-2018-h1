@@ -1,6 +1,6 @@
 # Hópverkefni 1
 
-Útfæra skal vefþjónustu fyrir „bókasafn“ með notendaumsjón. Gefin eru gögn fyrir bækur og flokka.
+Útfæra skal vefþjónustu fyrir „bókasafn“ með notendaumsjón og setja upp á Heroku. Gefin eru gögn fyrir bækur og flokka.
 
 ## Notendaumsjón
 
@@ -140,6 +140,8 @@ Ekki þarf að útfæra „týnt lykilorð“ virkni.
 Bækur geta aðeins verið í einum flokk.
 
 Þegar gögn eru flutt inn í gagnagrunn getur verið gott að nýta `await` í lykkju þó að eslint mæli gegn því. Ef t.d. er reynt að setja inn yfir 500 færslur í einu í gagnagrunn með `Promise.all`, getur tenging rofnað vegna villu.
+
+Lausn skal keyra á Heroku, ekki þarf að útfæra neina caching virkni eða þess háttar.
 
 ## Hópavinna
 
