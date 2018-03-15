@@ -111,6 +111,8 @@ Fyrir innskráðan notanda skal einnig vera hægt að:
 * Eyða lestur á bók
 * Skoða aðra notendur og lestur þeirra
 
+Dæmi um svör frá API má sjá á [sýnilausn verkefnis](https://vefforritun2-h1-synilausn.herokuapp.com/). Ykkar verkefni þarf ekki að vera nákvæmlega eins.
+
 ### Síður (paging)
 
 Fyrir fyrirspurnir sem skila listum af gögnum þarf að _page_a þau gögn. Þ.e.a.s. að sækja aðeins takmarkað magn úr heildarlista í einu og láta vita af næstu síðu. Þetta kemur í veg fyrir að við sækjum of mikið af efni í einu, t.d. ef gagnagrunnur myndi innihalda tugþúsundir bóka og notanda.
