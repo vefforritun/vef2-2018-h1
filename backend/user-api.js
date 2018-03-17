@@ -7,7 +7,13 @@ const router = express.Router()
 router.use(auth.initialize());
 
 router.get('/me', auth.authenticate(), async (req, res) => {
-
+  const id = req.user.id;
+  const result = await users.readOne(id);
+  if (result.error) {
+    res.status(result.code).json(result.error);
+  } else {
+    res.json(result);
+  }
 });
 
 router.patch('/me', auth.authenticate(), async (req, res) => {

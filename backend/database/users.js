@@ -61,7 +61,7 @@ async function readAll() {
   }
 }
 
-async function readOne(usernameOrID) {
+async function readOne(usernameOrID, trimPrivateVars) {
   let query;
   const params = [usernameOrID];
   if (validator.validateID(usernameOrID)) {
@@ -91,7 +91,11 @@ async function update(id, { name, passwordhash, image } = {}) {
     const results = await db.query(query, params);
     if (results.length > 0) {
       const user = await this.readOne(results[0].id);
-      return user;
+      if (!trimPrivateVars) {
+        return user;
+      } else {
+        return
+      }
     }
     return validator.createError({ error: 'User not found' }, 404);
   } catch (error) {

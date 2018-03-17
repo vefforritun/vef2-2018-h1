@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
 
   const result = await users.readOne(req.body.username);
   if (result.error) {
-    return req.status(result.code).json(result.error);
+    return res.status(result.code).json(result.error);
   }
 
   const user = result;
