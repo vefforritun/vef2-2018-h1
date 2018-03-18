@@ -30,9 +30,81 @@ app.get('/signup', async (_, res) => {
   });
 });
 
-app.get('/', auth.authenticate(), async (req, res) => {
+app.get('/', /*auth.authenticate(),*/ async (req, res) => {
   res.render('index', {
-    title: 'Einhver Titill' + JSON.stringify(req.user.username),
+    title: 'Books', //+ JSON.stringify(req.user.username)
+    categories: [
+      {
+        id: 0,
+        category: 'Featured'
+      },
+      {
+        id: 1,
+        category: 'Science Fiction'
+      },
+      {
+        id: 2,
+        category: 'Fiction'
+      },
+      {
+        id: 3,
+        category: 'Biography'
+      },
+      {
+        id: 4,
+        category: 'Academic'
+      }
+    ],
+    books: [
+    {
+      id: 0,
+      title: 'Bók 1',
+      isbn: '1234567890123',
+      author: 'Drífa',
+      description: 'gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar.',
+      category: 0
+    },
+    {
+      id: 1,
+      title: 'Bók 2',
+      isbn: '1234567890123',
+      author: 'Drífa',
+      description: 'gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar.',
+      category: 0
+    },
+    {
+      id: 2,
+      title: 'Bók 3',
+      isbn: '1234567890123',
+      author: 'Drífa',
+      description: 'gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar.',
+      category: 0
+    },
+    {
+      id: 3,
+      title: 'Bók 4',
+      isbn: '1234567890123',
+      author: 'Drífa',
+      description: 'gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar.',
+      category: 0
+    },
+    {
+      id: 4,
+      title: 'Bók 5',
+      isbn: '1234567890123',
+      author: 'Drífa',
+      description: 'gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar.',
+      category: 0
+    },
+    {
+      id: 5,
+      title: 'Bók 6',
+      isbn: '1234567890123',
+      author: 'Drífa',
+      description: 'gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar, gg kúl, lorem ipsum dolar.',
+      category: 0
+    }
+  ],
   });
 });
 
