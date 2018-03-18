@@ -5,7 +5,7 @@ const validator = require('./backend/database/validator');
 const login = require('./backend/login-api');
 const users = require('./backend/user-api');
 const books = require('./backend/book-api');
-const books = require('./backend/category-api');
+const categories = require('./backend/category-api');
 const auth = require('./backend/auth')();
 
 const app = new express();

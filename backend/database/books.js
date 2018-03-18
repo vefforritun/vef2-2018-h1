@@ -90,9 +90,20 @@ async function create(book) {
   }
 }
 
-async function readAll() {
-  const query = 'SELECT * FROM Books;';
-  const params = [];
+async function readAll(search, limit, offset) {
+
+  if (Number.isNaN(parseInt(`${limit}`, 10))) { return validator.createError({ error: 'Invalid limit' }, 400); }
+  if (Number.isNaN(parseInt(`${offset}`, 10))) { return validator.createError({ error: 'Invalid offset' }, 400); }
+
+
+  let query = 'SELECT * FROM Books ORDER BY id LIMIT $1 OFFSET $2;';
+  let params = [limit, offset];
+  if (search) {
+    const searchQuery = `%${search}%`
+    query = 'SELECT * FROM (SELECT * FROM Books WHERE title LIKE $1) queried ORDER BY id LIMIT $2 OFFSET $3;';
+    params = [searchQuery, limit, offset];
+  }
+
   try {
     const result = await db.query(query, params);
     return result;
