@@ -1,6 +1,18 @@
 const users = require('./database/users');
 const express = require('express')
 const auth = require('./auth')();
+const multer = require('multer');
+const cloudinary = require('cloudinary');
+const fs = require('fs');
+
+const UPLOADS_FOLDER = 'uploads';
+const upload = multer({ dest: `${UPLOADS_FOLDER}/` });
+
+cloudinary.config({
+  cloud_name: 'dkw3mduxl',
+  api_key: '292767666371397',
+  api_secret: '5xN65n3aU7B87Kntoa0g-60h_gI'
+});
 
 const router = express.Router()
 
@@ -48,8 +60,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/me/profile', (req, res) => {
-  // TODO: POST profile mynd
+router.post('/me/profile', [auth.authenticate(), upload.single('avatar')], async (req, res) => {
+  const id = req.user.id;
+  let user = await users.readOne(id);
+
+  const fileToUpload = `${UPLOADS_FOLDER}/${req.file.filename}`;
+  cloudinary.uploader.upload(fileToUpload, async (result) => {
+    user.image = result.url;
+    await users.update(id, user)
+
+    fs.unlink(fileToUpload, (err) => { if (err) { console.log('Error deleting file: ' + err); } });
+    res.send();
+  });
 });
 
 module.exports = router
