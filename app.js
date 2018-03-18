@@ -5,6 +5,7 @@ const validator = require('./backend/database/validator');
 const login = require('./backend/login-api');
 const users = require('./backend/user-api');
 const books = require('./backend/book-api');
+const books = require('./backend/category-api');
 const auth = require('./backend/auth')();
 
 const app = new express();
@@ -22,6 +23,7 @@ app.use(express.static('public'));
 
 app.use('/', login);
 app.use('/users', users);
+app.use('/categories', categories);
 app.use('/books', books);
 
 const hostname = '127.0.0.1';

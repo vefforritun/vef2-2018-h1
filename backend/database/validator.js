@@ -28,11 +28,11 @@ exports.validateBook = (book) => {
   const { title, isbn, author, description, category } = book;
 
   const errors = [];
-  const isTitleValid = (typeof title === "string") && title.length > 0;
-  const isAuthorValid = (typeof author === "string") && author.length > 0;
-  const isDescriptionValid = (typeof description === "string") && description.length > 0;
+  const isTitleValid = (typeof title === 'string') && title.length > 0;
+  const isAuthorValid = (typeof author === 'string') && author.length > 0;
+  const isDescriptionValid = (typeof description === 'string') && description.length > 0;
   const isIsbnValid = isbn.length === 13 && /^\d+$/.test(isbn);
-  const isCategoryValid = /^\d+$/.test(category);
+  const isCategoryValid = typeof category === 'string' && category !== '';
 
   return [
     [!isTitleValid, 'title', 'Field "title" must be a non-empty string'],

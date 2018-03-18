@@ -1,6 +1,59 @@
 const db = require('./database');
 const validator = require('./validator');
 
+async function readAllCategories() {
+  const query = 'SELECT * FROM Categories;';
+  const params = [];
+  try {
+    const result = await db.query(query, params);
+    return result;
+  } catch (e) {
+    return validator.createError({ error: e.message }, 400);
+  }
+}
+
+async function addCategory(category) {
+  if (typeof category !== 'string' || category.length === 0) {
+    return validator.createError({ error: 'Invalid category' }, 400);
+  }
+
+  try {
+    const query = 'INSERT INTO Categories(category) VALUES($1);';
+    const result = await db.query(query, [ category ]);
+    return result;
+  } catch (e) {
+    return validator.createError({ error: e.message }, 400);
+  }
+}
+
+async function readCategory(idOrCategory) {
+  let query;
+  const params = [idOrCategory];
+  if (validator.validateID(idOrCategory)) {
+    query = 'SELECT * FROM Categories WHERE id=$1;';
+  } else if (typeof category !== 'string' || category.length === 0) {
+    query = 'SELECT * FROM Categories WHERE category=$1;';
+  } else {
+    return validator.createError({ error: 'Invalid category or ID' }, 400);
+  }
+
+  const result = await db.query(query, params);
+  if (result.length > 0) {
+    return result[0];
+  } else {
+    return validator.createError({ error: 'Category not found' }, 404);
+  }
+}
+
+async function getOrTryCreateCategory(category) {
+  let categoryRowResult = await readCategory(category);
+
+  if (categoryRowResult.code === 404) {
+    categoryRowResult = await addCategory(category);
+  }
+  return categoryRowResult
+}
+
 async function create(book) {
   const errorMessage = validator.validateBook(book);
   if (errorMessage.length > 0) {
@@ -11,10 +64,16 @@ async function create(book) {
   let author = book.author;
   let description = book.description;
   if (!description) { description = null; }
-  if (!author) { auther = null; }
+  if (!author) { author = null; }
+
+  let categoryRowResult = await getOrTryCreateCategory(category);
+
+  if (categoryRowResult.error) {
+    return categoryRowResult;
+  }
 
   const query = 'INSERT INTO Books(title, isbn, author, description, category) VALUES($1, $2, $3, $4, $5) returning id;';
-  const params = [title, isbn, author, description, category];
+  const params = [title, isbn, author, description, categoryRowResult.id];
   try {
     const idsAffected = await db.query(query, params);
 
@@ -70,10 +129,12 @@ async function update(id, book) {
   let author = book.author;
   let description = book.description;
   if (!description) { description = null; }
-  if (!author) { auther = null; }
+  if (!author) { author = null; }
+
+  let categoryRowResult = await getOrTryCreateCategory(category);
 
   const query = 'UPDATE Books SET title=$1, isbn=$2, author=$3, description=$4, category=$5 WHERE id=$6 returning id;';
-  const params = [title, isbn, author, description, category, id];
+  const params = [title, isbn, author, description, categoryRowResult.id, id];
 
   try {
     const results = await db.query(query, params);
@@ -111,4 +172,8 @@ module.exports = {
   readOne,
   update,
   del,
+  readAllCategories,
+  readCategory,
+  addCategory,
+  getOrTryCreateCategory,
 };
