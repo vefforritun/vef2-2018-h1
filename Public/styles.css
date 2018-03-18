@@ -1,7 +1,146 @@
-h1 {
-  color: #111;
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /*background: #ffffff;*/
+    background: url("https://images.unsplash.com/photo-1504730668753-bea25cfb2d0e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a85c9305366a4790702062e193061b7a&auto=format&fit=crop&w=1267&q=80") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
+/* ---------------------- */
+/*       TEXT STYLE       */
+/* ---------------------- */
+
 p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+  color: inherit;
+  
+  transition: all 0.3s;
+}
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+/* ---------------------- */
+/*        SIDEBAR         */
+/* ---------------------- */
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #2fd4af;
+  transition: all 0.3s;
+  border-right: 1px solid #f0f0f0;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #ffffff;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+}
+
+#sidebar ul p {
+  color: #2fd4af;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+#sidebar ul li a:hover {
+  background: #2fd4af; /* Green */
+  color: white;
+  opacity: 0.3;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #2fd4af;
+}
+
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+}
+
+/* ---------------------- */
+/*        NAVBAR          */
+/* ---------------------- */
+
+.navbar {
+  background-color: #2fd4af;
+  background-image: none;
+}
+.navbar-brand button {
+  background-color: white;
+  color: #2fd4af;
+  border-color: #2fd4af;
+}
+
+.navbar-brand button:hover {
+  background-color: #2fd4af;
+  color: white;
+  transition: 1s ease-in-out;
+}
+
+/* ---------------------- */
+/*         CARDS          */
+/* ---------------------- */
+
+.card-container {
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 10%;
+  padding-top: 3%;
+
+  /* Grid System*/
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  margin: 1em;
+}
+
+.plus-card {
+  height: 250px;
+  width: 250px;
+  border-radius: 4px;
+  border: 2px dashed lightgray;
   color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.plus-card > svg {
+  fill: currentColor;
 }

@@ -1,110 +1,133 @@
-document.addEventListener("DOMContentLoaded", function () {
+console.log(typeof jQuery);
+$(document).ready(function () {
 
-  var notAMemberText = document.getElementById('not-a-member');
-  var signUpNowButton = document.getElementById('sign-up-now');
-  var verPass = document.getElementById('verPassword');
-  var password = document.getElementById('password');
-  var name = document.getElementById('name');
-  var username = document.getElementById('username');
-  var loginButton = document.getElementById('login-button');
-  var signUpButton = document.getElementById('sign-up-button')
-  var title = document.getElementById('title');
+  let token;
+  let LoginNowButton = $('#login-button-homescreen');
+  let signUpNowButton = $('#sign-up-button-homescreen');
+  let verPass = $('#verPassword');
+  let passwordLogin = $('#password-login');
+  let passwordSignUp = $('#password-sign-up');
+  let name = $('#name');
+  let usernameLogin = $('#username-login');
+  let usernameSignUp = $('#username-sign-up')
+  let loginButton = $('#login-button');
+  let signUpButton = $('#sign-up-button')
 
-  var errorMessageUsername = document.getElementById('username-is-required');
-  var errorMessageUsernameLength = document.getElementById('username-length');
-  var errorMessagePassword = document.getElementById('password-is-required');
-  var errorMessageFullName = document.getElementById('full-name-required');
-  var errorMessageverifyPass = document.getElementById('confirm-password-alert');
-  var errorMessagePasswordNotMatch = document.getElementById('password-not-match');
+  let errorMessageUsername = $('.username-is-required');
+  let errorMessageUsernameLength = $('#username-length');
+  let errorMessagePassword = $('.password-is-required');
+  let errorMessagePasswordLength = $('#password-length');
+  let errorMessageFullName = $('#full-name-required');
+  let errorMessageverifyPass = $('#confirm-password-alert');
+  let errorMessagePasswordNotMatch = $('#password-not-match');
 
-  signUpNowButton.onclick = function signUpOnClick() {
-    title.innerHTML = 'Sign Up';
-    errorMessageUsername.style.display = 'none';
-    errorMessagePassword.style.display = 'none';
-
-    signUpButton.style.display = 'block'
-    notAMemberText.style.display = 'none';
-    signUpNowButton.style.display = 'none';
-    loginButton.style.display = 'none';
-
-    // add inputs for sign-up window
-    if (verPass.style.display === 'none') {
-      verPass.style.display = 'block';
-    } if (name.style.display === 'none') {
-      name.style.display = 'block';
-    }
-    else {
-      verPass.style.display = 'none';
-      name.style.display = 'none';
-    };
+  function setToken(tok) {
+    token = tok;
+    // TODO: sækja user og user-profílmynd
   }
 
-  loginButton.onclick = function errorMessagesLogin() {
-    // ERROR message for username input
-    console.log(username.value);
-    if (username.value === '' && password.value === '') {
-      errorMessageUsername.style.display = 'block';
-      errorMessagePassword.style.display = '°2  °eblock';
+  function toggleShowOn(e, onCondition) {
+    if (onCondition) {
+      e.show();
     } else {
-      errorMessageUsername.style.display = 'none';
-      errorMessagePassword.style.display = 'none';
-    }
-
-    if (username.value === '') {
-      errorMessageUsername.style.display = 'block';
-    } else {
-      errorMessageUsername.style.display = 'none';
-    }
-
-    if (password.value === '') {
-      errorMessagePassword.style.display = 'block';
-    } else {
-      errorMessagePassword.style.display = 'none';
+      e.hide();
     }
   }
 
-  signUpButton.onclick = function errorMessagesSignup() {
-
-    if (username.value === '') {
-      errorMessageUsername.style.display = 'block';
+  function showError(e, errorMessage) {
+    if (e.val() === '') {
+      errorMessage.show();
     } else {
-      errorMessageUsername.style.display = 'none';
+      errorMessage.hide();
+    }
+  }
+
+  signUpNowButton.click(function () {
+    console.log("signUpNowButton");
+    usernameSignUp.val('');
+    passwordSignUp.val('');
+    name.val('');
+    verPass.val('');
+
+    errorMessageUsername.hide();
+    errorMessagePassword.hide();
+    errorMessageFullName.hide();
+    errorMessageverifyPass.hide();
+  });
+
+  LoginNowButton.click(function () {
+    usernameLogin.val('');
+    passwordLogin.val('');
+
+    errorMessageUsername.hide();
+    errorMessagePassword.hide();
+  });
+
+  loginButton.click(function () {
+    if (usernameLogin.val() === '' && passwordLogin.val() === '') {
+      errorMessageUsername.show();
+      errorMessagePassword.show();
+    } else {
+      errorMessageUsername.hide();
+      errorMessagePassword.hide();
     }
 
-    if (username.value.length <= 2) {
-      errorMessageUsernameLength.style.display = 'block';
+    showError(usernameLogin, errorMessageUsername);
+    showError(passwordLogin, errorMessagePassword);
+
+    //username.val('');
+    //password.val('');
+  });
+
+  signUpButton.click(function () {
+
+    showError(usernameSignUp, errorMessageUsername);
+    showError(passwordSignUp, errorMessagePassword);
+    showError(name, errorMessageFullName);
+    showError(verPass, errorMessageverifyPass);
+
+    // TODO: finna út afhverju errorMessageUsernameLength byrtist ekki
+    toggleShowOn(errorMessageUsernameLength, usernameSignUp.val().length > 0 && usernameSignUp.val().length <= 2);
+    if (passwordSignUp.val() !== verPass.val()) {
+      errorMessagePasswordNotMatch.show();
+      if (errorMessageverifyPass.show()) {
+        errorMessageverifyPass.hide();
+      } else {
+        errorMessageverifyPass.show();
+      }
     } else {
-      errorMessageUsernameLength.style.display = 'none';
+      errorMessagePasswordNotMatch.hide();
     }
 
-    if (password.value === '') {
-      errorMessagePassword.style.display = 'block';
-    } else {
-      errorMessagePassword.style.display = 'none';
-    }
+    //toggleShowOn(errorMessagePasswordNotMatch, passwordSignUp.val() !== verPass.val());
+    toggleShowOn(errorMessagePasswordLength, passwordSignUp.val().length > 0 && passwordSignUp.val().length <= 5);
 
-    if (name.value === '') {
-      errorMessageFullName.style.display = 'block';
-    } else {
-      errorMessageFullName.style.display = 'none';
-    }
-
-    if (verPass.value === '') {
-      errorMessageverifyPass.style.display = 'block';
-    } else {
-      errorMessageverifyPass.style.display = 'none';
-    }
-
-    if (password.value !== verPass.value) {
-      errorMessagePasswordNotMatch.style.display = 'block';
-    } else {
-      errorMessagePasswordNotMatch.style.display = 'none';
-    }
-
-
+    /*username.val('');
+    password.val('');
+    name.val('');
+    verPass.val('');*/
 
     // username already exists
     // $.get('/users/${username}', null, function (data, status){}, "json")
+  });
+
+  function login(callback) {
+    $.ajax({
+      url : "/login",// your username checker url
+      type : "POST",
+      data : {
+        "username": username.val(),
+        "password": password.val(),
+      },
+      success : function (data) {
+        setToken(data.token);
+        console.log(token);
+        // redirect to homescreen with token in header
+      },
+      error: function (err) {
+        console.log("Error: " + err);
+      }
+    });
   }
 
-}, false);
+});
